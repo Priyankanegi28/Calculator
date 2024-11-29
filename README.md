@@ -1,4 +1,4 @@
-**Calculator Project**  
+#Calculator Project
 
 ### **Overview**  
 This project is a feature-rich, web-based calculator application created using HTML, CSS, and JavaScript. It offers two distinct calculation modes: Standard Calculation for basic arithmetic operations and Date Calculation to compute the difference between two dates. The calculator is designed with a clean and responsive user interface for ease of use.  
