@@ -1,0 +1,2 @@
+# Calculator
+ This web-based calculator, created using HTML, CSS, and JavaScript, offers two versatile calculation modes. **Standard Calculation** allows users to perform basic arithmetic operations such as addition, subtraction, multiplication, and division. **Date Calculation** helps users find the difference between two dates or perform date-based operations. The project features a clean and user-friendly interface, ensuring ease of use for all. Its responsive design ensures compatibility across devices, making it a practical tool for everyday calculations.
