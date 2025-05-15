@@ -1,337 +1,465 @@
+:root {
+    --bg-color: #1e1e1e;
+    --text-color: #ffffff;
+    --primary-color: #ff9500;
+    --secondary-color: #505050;
+    --accent-color: #007bff;
+    --display-bg: #2a2a2a;
+    --button-hover: #3a3a3a;
+    --history-bg: #252525;
+    --border-color: #444;
+}
+
+[data-theme="light"] {
+    --bg-color: #f5f5f5;
+    --text-color: #333333;
+    --primary-color: #ff9500;
+    --secondary-color: #d4d4d4;
+    --accent-color: #007bff;
+    --display-bg: #ffffff;
+    --button-hover: #e0e0e0;
+    --history-bg: #e9e9e9;
+    --border-color: #ccc;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
 html, body {
     height: 100%;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #333;
-    font-family: Arial, sans-serif;
-    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
 }
 
 .container {
     display: flex;
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 50px);
+    margin-top: 50px;
     box-sizing: border-box;
+    flex-direction: row;
+}
+
+.page {
+    width: 100%;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    background-color: var(--secondary-color);
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.top-bar h1 {
+    font-size: 1.2rem;
+    margin-left: 15px;
+    font-weight: normal;
+}
+
+.top-bar i {
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--text-color);
 }
 
 .calculator {
     flex: 2;
-    padding: 20px;
-    background-color: #333;
-    border-radius: 10px;
+    padding: 15px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    justify-content: flex-end;
+    height: 100%;
+    overflow: hidden;
+}
+
+.display-container {
+    margin-bottom: 15px;
+    text-align: right;
+    padding: 10px;
+    background-color: var(--display-bg);
+    border-radius: 10px;
+    min-height: 100px;
+    max-height: 25vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow-y: auto;
+}
+
+#expression {
+    font-size: 1rem;
+    color: #888;
+    min-height: 1.2rem;
+    word-wrap: break-word;
 }
 
 #display {
-    width: 95%;
-    height: 25%;
-    font-size: 48px;
+    width: 100%;
+    font-size: 2.5rem;
     text-align: right;
-    padding-right: 10px;
-    background-color: #222;
-    color: white;
+    background-color: transparent;
+    color: var(--text-color);
     border: none;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-sizing: border-box;
+    outline: none;
 }
 
 .buttons {
     display: flex;
-    justify-content: space-between;
-    width: 100%;
+    flex-direction: column;
+    gap: 10px;
+    height: calc(75vh - 50px);
+    overflow: hidden;
 }
 
-.number-buttons {
+.standard-buttons {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    padding-left: 45px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.scientific-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+    overflow-y: auto;
+    max-height: calc(100% - 300px);
+    padding: 5px;
+}
+
+.scientific-row {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.scientific-row button {
+    flex: 1;
+    min-width: 60px;
+    font-size: 0.9rem !important;
+    padding: 10px 5px;
+    color: #888;
 }
 
 button {
-    padding: 20px;
-    font-size: 24px;
+    padding: 15px;
+    font-size: 1.2rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    box-sizing: border-box;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
 }
 
 button:hover {
     opacity: 0.9;
+    background-color: var(--button-hover);
 }
 
 button:active {
-    opacity: 0.7;
+    transform: scale(0.98);
 }
 
 .number-buttons button {
-    background-color: #444;
-    color: white;
-    height: 70px;
-    width: 265px;
-    font-size: 30px;
+    background-color: var(--secondary-color);
 }
 
-.operation-buttons {
+.op-btn {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+.eq-btn {
+    background-color: var(--accent-color) !important;
+    color: white !important;
+}
+
+.fn-btn {
+    background-color: #a5a5a5 !important;
+    color: black !important;
+}
+
+.sci-btn {
+    background-color: #333 !important;
+    font-size: 1rem !important;
+    height: 50px !important;
+}
+
+.wide-btn {
+    grid-column: span 1;
+}
+
+.history {
+    width: 300px;
+    padding: 15px;
+    background-color: var(--history-bg);
+    border-left: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding-right: 45px;
-}
-
-.operation-buttons button {
-    background-color: orange;
-    color: white;
-    height: 70px;
-    width: 250px;
-    font-size: 30px;
-}
-
-button#equals {
-    background-color: #007bff;
-    color: white;
-}
-
-button#equals:hover {
-    background-color: #0056b3;
-}
-
-/* History Section */
-.history {
-    padding: 10px;
-    background-color: #222;
-    color: white;
-    width: 300px;
-    border-left: 2px solid #444;
-    position: relative;
+    overflow-y: auto;
 }
 
 .history h2 {
-    font-size: 20px;
+    font-size: 1.2rem;
     margin-bottom: 10px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.history h2 hr {
+    flex-grow: 1;
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin-left: 8px;
 }
 
 .history ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .history ul li {
     margin-bottom: 10px;
-    font-size: 20px;
-    color: #ddd;
+    padding: 8px;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+    cursor: pointer;
+    word-break: break-all;
 }
 
-/* Clear History Button */
+.history ul li:hover {
+    background-color: var(--button-hover);
+}
+
 .clear-history-btn {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background-color: #444;
-    color: white;
-    border: none;
+    margin-top: 15px;
     padding: 10px;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    border: none;
     border-radius: 5px;
-    font-size: 18px;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 8px;
+    cursor: pointer;
 }
 
-.clear-history-btn:hover {
-    background-color: #555;
-}
-
-.clear-history-btn i {
-    font-size: 16px;
-}
-
-/* Sidebar */
 .sidebar {
     height: 100%;
     width: 0;
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #222;
+    background-color: var(--history-bg);
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: 0.3s;
     padding-top: 60px;
     z-index: 1000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar button {
-    padding: 10px 20px;
+    padding: 15px 25px;
     text-align: left;
     background: none;
-    color: white;
+    color: var(--text-color);
     border: none;
-    font-size: 18px;
+    font-size: 1rem;
     width: 100%;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-radius: 0;
 }
 
 .sidebar button:hover {
-    background-color: #555555;
+    background-color: var(--button-hover);
 }
 
 .close-btn {
     position: absolute;
-    top: 20px;
-    left: 210px;
-    font-size: 40px;
-    size: 30px;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: none !important;
 }
 
-/* Top bar */
-.top-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 40px;
+.date-difference-container, .converter-container {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: var(--history-bg);
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.date-input, .converter-row {
+    margin-bottom: 15px;
+}
+
+.date-input label, .converter-row label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
     display: flex;
     align-items: center;
-    padding-left: 9px;
+    gap: 8px;
 }
 
-.top-bar i {
-    font-size: 20px;
+.date-input input, .converter-row input, .converter-row select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--border-color);
+    background-color: var(--display-bg);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.date-results p {
+    margin: 10px 0;
+    padding: 8px;
+    background-color: var(--bg-color);
+    border-radius: 5px;
+}
+
+.theme-switcher {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: var(--primary-color);
     color: white;
-    cursor: pointer;
-}
-
-/* Date Calculation Page */
-#dateCalculationPage {
-    position: absolute;
-    top: 10px;
-    left: 30px;
-    padding: 20px;
-    font-size: 1.2em;
-    background-color: #333;
-    color: white;
-    width: 80%;
-}
-
-.date-difference-container {
+    border-radius: 50%;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 30px;
-    color: white;
-    width: 400px;
-    padding: 20px;
-}
-
-.date-difference-container label {
-    font-size: 1.2em;
-}
-
-#dateDifferenceResult {
-    margin-top: 10px;
-    font-size: 1.2em;
-    color: lightgreen;
-}
-
-.date-difference-container input[type="date"] {
-    height: 30px;
-    font-size: 1.2em;
-    padding: 5px;
-}
-
-/* Responsive Media Queries */
-@media (max-width: 1200px) {
-    .number-buttons button, .operation-buttons button {
-        font-size: 24px;
-        height: 60px;
-        width: auto;
-    }
-
-    #display {
-        font-size: 36px;
-    }
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 100;
 }
 
 @media (max-width: 992px) {
     .container {
         flex-direction: column;
-        align-items: center;
+        height: auto;
     }
     
-    .calculator, .history {
-        width: 90%;
-        margin-bottom: 20px;
+    .calculator {
+        width: 100%;
+        padding: 10px;
+        height: 70vh;
     }
-
+    
     .history {
+        width: 100%;
         border-left: none;
-        border-top: 2px solid #444;
+        border-top: 1px solid var(--border-color);
+        height: 30vh;
+    }
+    
+    #display {
+        font-size: 2rem;
+    }
+    
+    .buttons {
+        height: calc(100% - 120px);
+    }
+    
+    .scientific-buttons {
+        max-height: 50%;
     }
 }
 
 @media (max-width: 768px) {
-    .top-bar {
-        padding-left: 20px;
+    .top-bar h1 {
+        font-size: 1rem;
     }
-
+    
+    .display-container {
+        min-height: 80px;
+    }
+    
     #display {
-        font-size: 32px;
-        padding: 5px;
+        font-size: 1.8rem;
     }
-
+    
+    #expression {
+        font-size: 0.9rem;
+    }
+    
     button {
-        padding: 15px;
-        font-size: 20px;
+        padding: 10px;
+        height: 45px;
+        font-size: 0.9rem;
     }
-
-    .number-buttons {
-        padding-left: 0;
-        gap: 5px;
-    }
-
-    .operation-buttons {
-        padding-right: 0;
-        gap: 5px;
-    }
-
-    .number-buttons button, .operation-buttons button {
-        width: 80px;
-        height: 60px;
-    }
-
-    #dateCalculationPage {
-        width: 100%;
-        font-size: 1em;
+    
+    .sci-btn {
+        font-size: 0.8rem !important;
+        padding: 8px 2px !important;
     }
 }
 
 @media (max-width: 576px) {
-    .container {
-        padding: 10px;
+    .standard-buttons, .scientific-row {
+        gap: 5px;
     }
-
-    .calculator, .history {
-        width: 100%;
-    }
-
-    #display {
-        font-size: 24px;
-    }
-
+    
     button {
-        font-size: 16px;
-        padding: 10px;
+        padding: 8px;
+        height: 40px;
+        font-size: 0.8rem;
+    }
+    
+    .sci-btn {
+        font-size: 0.7rem !important;
+    }
+    
+    #display {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-height: 600px) {
+    .calculator {
+        height: 60vh;
+    }
+    
+    .history {
+        height: 40vh;
+    }
+    
+    .scientific-buttons {
+        max-height: 40%;
     }
 }
