@@ -38,10 +38,10 @@ This project is a feature-rich, web-based calculator application created using H
 
 ### **Screenshots**  
 
-![Standard](screenshots/standard.jpg)
+![Standard](screenshots/standard.png)
 
 
-![DateCalculation](screenshots/DateCalculation.jpg)
+![DateCalculation](screenshots/DateCalculation.png)
   
 
 ### **Future Enhancements**  
