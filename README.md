@@ -1,7 +1,7 @@
 # Advanced Calculator Web Application
 
 ### **Overview**  
-This project is a feature-rich, web-based calculator application created using HTML, CSS, and JavaScript. It offers two distinct calculation modes: Standard Calculation for basic arithmetic operations and Date Calculation to compute the difference between two dates. The calculator is designed with a clean and responsive user interface for ease of use.  
+This project is a feature-rich, web-based calculator application created using HTML, CSS, and JavaScript. It offers four distinct calculation modes: Standard Calculation for basic arithmetic operations, Date Calculation to compute the difference between two dates , Scientific Calculator for Advanced functions (sin, cos, tan, log, ln, powers, roots) and last Unit Calculator for Convert between different measurement units. The calculator is designed with a clean and responsive user interface for ease of use.  
 
 ## Features
 
